@@ -1,4 +1,5 @@
 # Python Statistical Tests Samples
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/kkawailab/stats-tests/blob/main/notebooks/stat_tests_tutorial.ipynb)
 
 このリポジトリでは、SciPy を用いた t 検定とカイ二乗検定の代表的なユースケースを 3 本ずつ収録しています。いずれも単体実行でき、GitHub 上でそのまま参照できるように README で概要をまとめています。
 
