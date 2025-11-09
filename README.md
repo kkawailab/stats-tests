@@ -38,7 +38,7 @@ uv run python examples/<script>.py  # 任意のスクリプト名に差し替え
 ---
 
 ## チュートリアル: サンプルスクリプトを追いながら理解する
-以下は各スクリプトの抜粋と、その挙動を確認するコマンド例です。コードの全体像は記載されたパスを直接開いてください。
+以下は各スクリプトの抜粋と、その挙動を確認するコマンド例です。コードの全体像は記載されたパスを直接開いてください。Notebook 形式で手元から実行したい場合は `notebooks/stat_tests_tutorial.ipynb` を開いて同じ内容を追体験できます。
 
 ### コマンド構文のポイント
 `uv run --with numpy --with scipy python3 examples/<script>.py`
