@@ -37,6 +37,66 @@ uv run python examples/<script>.py  # 任意のスクリプト名に差し替え
 
 ---
 
+## チュートリアル: サンプルスクリプトを追いながら理解する
+以下は各スクリプトの抜粋と、その挙動を確認するコマンド例です。コードの全体像は記載されたパスを直接開いてください。
+
+### 1. 一標本 t 検定 (`examples/t_test_one_sample.py`)
+```python
+sample = np.array([4.1, 3.7, 4.4, 5.2, 3.9, 4.0, 4.6, 3.8, 4.3, 4.1, 4.7, 3.6])
+population_mean = 3.5
+statistic, p_value = stats.ttest_1samp(sample, population_mean)
+```
+- コマンド: `uv run --with numpy --with scipy python3 examples/t_test_one_sample.py`
+- 固定サンプルが要件値 3.5 分を上回るか検証し、p 値と解釈を出力します。
+
+### 2. Welch の 2 標本 t 検定 (`examples/t_test_independent.py`)
+```python
+legacy = np.array([4.8, 5.1, 4.5, 4.9, 5.0, 4.7, 4.6, 4.8, 5.2, 4.5])
+new = np.array([5.4, 5.6, 5.1, 5.5, 5.7, 5.2, 5.6, 5.3, 5.7, 5.4])
+statistic, p_value = stats.ttest_ind(new, legacy, equal_var=False)
+```
+- コマンド: `uv run --with numpy --with scipy python3 examples/t_test_independent.py`
+- `equal_var=False` で Welch 検定を行い、新旧フローの満足度差を判定します。
+
+### 3. 対応のある t 検定 (`examples/t_test_paired.py`)
+```python
+before = np.array([612, 598, 605, 623, 615, 607, 618, 611])
+after = np.array([590, 582, 588, 600, 596, 589, 594, 592])
+statistic, p_value = stats.ttest_rel(before, after)
+```
+- コマンド: `uv run --with numpy --with scipy python3 examples/t_test_paired.py`
+- 同一ドライバーの前後データをペアで比較し、反応時間が短縮されたかを確認します。
+
+### 4. 適合度検定 (`examples/chi_square_goodness_of_fit.py`)
+```python
+observed = np.array([52, 47, 50, 56, 65, 70, 60])
+expected = np.repeat(observed.sum() / observed.size, observed.size)
+statistic, p_value = stats.chisquare(f_obs=observed, f_exp=expected)
+```
+- コマンド: `uv run --with numpy --with scipy python3 examples/chi_square_goodness_of_fit.py`
+- 曜日ごとの売上が一様分布から外れているかどうかを評価します。
+
+### 5. 独立性の検定 (`examples/chi_square_independence.py`)
+```python
+contingency = np.array([[35, 22],
+                        [28, 30]])
+statistic, p_value, dof, expected = stats.chi2_contingency(contingency)
+```
+- コマンド: `uv run --with numpy --with scipy python3 examples/chi_square_independence.py`
+- 性別と色の嗜好が独立かどうかを確認し、期待度数も出力されます。
+
+### 6. 同質性の検定 (`examples/chi_square_homogeneity.py`)
+```python
+contingency = np.array([[42, 158],
+                        [55, 145],
+                        [33, 170]])
+statistic, p_value, dof, expected = stats.chi2_contingency(contingency)
+```
+- コマンド: `uv run --with numpy --with scipy python3 examples/chi_square_homogeneity.py`
+- 広告クリエイティブ間でコンバージョン率に差があるかを評価し、期待度数を比較に使えます。
+
+---
+
 ## 出力例
 ```bash
 $ uv run --with numpy --with scipy python3 examples/t_test_one_sample.py
