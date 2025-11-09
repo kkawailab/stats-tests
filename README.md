@@ -40,6 +40,13 @@ uv run python examples/<script>.py  # 任意のスクリプト名に差し替え
 ## チュートリアル: サンプルスクリプトを追いながら理解する
 以下は各スクリプトの抜粋と、その挙動を確認するコマンド例です。コードの全体像は記載されたパスを直接開いてください。
 
+### コマンド構文のポイント
+`uv run --with numpy --with scipy python3 examples/<script>.py`
+- `uv run`: 仮想環境を自動的に解決し、指定コマンドを一時的な依存関係付きで実行します。
+- `--with <package>`: その場で必要ライブラリを解決します。複数指定可能で、ここでは `numpy` と `scipy` を事前にプルします。
+- `python3 examples/<script>.py`: 実行したい Python インタプリタとスクリプトパス。`<script>` 部分を実際のファイル名に置き換えてください。
+- 既に `uv pip install` で依存解決済みの場合は `--with` を省略しても構いません。
+
 ### 1. 一標本 t 検定 (`examples/t_test_one_sample.py`)
 ```python
 sample = np.array([4.1, 3.7, 4.4, 5.2, 3.9, 4.0, 4.6, 3.8, 4.3, 4.1, 4.7, 3.6])
@@ -113,6 +120,13 @@ Expected counts:
  [[31.22608696 25.77391304]
  [31.77391304 26.22608696]]
 ```
+
+---
+
+## 更新履歴
+- 2025-11-09: README にチュートリアル用コード抜粋とコマンド解説を追加（`Expand tutorial with code excerpts`）。
+- 2025-11-09: uv ベースのセットアップ手順と実行例を README/AGENTS に反映（`Update docs with uv workflow and output`）。
+- 2025-11-09: SciPy/NumPy サンプルスクリプトと README/AGENTS の初版を公開（`Add statistical test samples and docs`）。
 
 ---
 
