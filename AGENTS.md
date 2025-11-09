@@ -7,11 +7,11 @@
 
 ## Build, Test, and Development Commands
 ```bash
-python -m venv .venv && source .venv/bin/activate
-pip install --upgrade pip numpy scipy
-python examples/t_test_one_sample.py  # replace with any file to validate behavior
+uv venv .venv && source .venv/bin/activate
+uv pip install --upgrade numpy scipy
+uv run python examples/t_test_one_sample.py  # swap for any script to validate behavior
 ```
-- Scripts are deterministic; running them is the primary verification step today. Add `pytest` entry points under `tests/` if automated checks become necessary.
+- Scripts are deterministic; running them is the primary verification step today. Add `pytest` entry points under `tests/` if automated checks become necessary. `uv run pytest` keeps dependency resolution consistent.
 
 ## Coding Style & Naming Conventions
 - Python 3.10+ with 4-space indentation, UTF-8 source.
@@ -31,4 +31,4 @@ python examples/t_test_one_sample.py  # replace with any file to validate behavi
 
 ## Security & Configuration Tips
 - No secrets belong in this repo. Sample data is synthetic—keep it that way.
-- Pin dependency versions in documentation when referencing `pip install` commands to ensure reproducibility on GitHub Codespaces or CI.
+- When documenting dependency commands, prefer `uv pip install <package>==<version>` snippets so Codespaces/CI environments can reproduce the lock-free setup consistently.

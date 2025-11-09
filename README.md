@@ -7,11 +7,12 @@
 - NumPy 1.24+ : サンプルデータ生成と配列演算
 
 ## 実行方法
+[`uv`](https://docs.astral.sh/uv/) を使って依存関係を高速に解決します。
 ```bash
-python -m venv .venv
+uv venv .venv
 source .venv/bin/activate
-pip install scipy numpy
-python examples/<script>.py
+uv pip install numpy scipy
+uv run python examples/<script>.py  # 任意のスクリプト名に差し替え
 ```
 
 ---
@@ -33,6 +34,25 @@ python examples/<script>.py
 | `examples/chi_square_homogeneity.py` | 複数群の割合が同じかを `stats.chi2_contingency` で比較。 | 広告クリエイティブ間のコンバージョン率の同質性検定。 |
 
 出力にはカイ二乗統計量・自由度・p 値に加え、`chi2_contingency` を用いる例では期待度数も含めています。
+
+---
+
+## 出力例
+```bash
+$ uv run --with numpy --with scipy python3 examples/t_test_one_sample.py
+t-statistic: 5.213
+p-value: 0.0003
+Reject the null hypothesis: the workflow saves more than 3.5 minutes on average.
+
+$ uv run --with numpy --with scipy python3 examples/chi_square_independence.py
+Chi-square statistic: 1.505
+Degrees of freedom: 1
+p-value: 0.2199
+Preference independent of gender.
+Expected counts:
+ [[31.22608696 25.77391304]
+ [31.77391304 26.22608696]]
+```
 
 ---
 
