@@ -54,6 +54,9 @@ population_mean = 3.5
 statistic, p_value = stats.ttest_1samp(sample, population_mean)
 ```
 - コマンド: `uv run --with numpy --with scipy python3 examples/t_test_one_sample.py`
+- `--with numpy`: サンプル配列を扱うための NumPy を都度インストールします。
+- `--with scipy`: `stats.ttest_1samp` に必要な SciPy を指定。
+- `examples/t_test_one_sample.py`: 他のファイル名に差し替えれば別シナリオを実行できます。
 - 固定サンプルが要件値 3.5 分を上回るか検証し、p 値と解釈を出力します。
 
 ### 2. Welch の 2 標本 t 検定 (`examples/t_test_independent.py`)
@@ -63,6 +66,9 @@ new = np.array([5.4, 5.6, 5.1, 5.5, 5.7, 5.2, 5.6, 5.3, 5.7, 5.4])
 statistic, p_value = stats.ttest_ind(new, legacy, equal_var=False)
 ```
 - コマンド: `uv run --with numpy --with scipy python3 examples/t_test_independent.py`
+- `--with numpy`: 2 群の配列演算を支援。
+- `--with scipy`: Welch t 検定を提供する `stats.ttest_ind` を利用。
+- `examples/t_test_independent.py`: 独立 2 標本の雛形。必要に応じてファイル内データを書き換える。
 - `equal_var=False` で Welch 検定を行い、新旧フローの満足度差を判定します。
 
 ### 3. 対応のある t 検定 (`examples/t_test_paired.py`)
@@ -72,6 +78,9 @@ after = np.array([590, 582, 588, 600, 596, 589, 594, 592])
 statistic, p_value = stats.ttest_rel(before, after)
 ```
 - コマンド: `uv run --with numpy --with scipy python3 examples/t_test_paired.py`
+- `--with numpy`: Before/After の差分計算を行う配列演算用。
+- `--with scipy`: `stats.ttest_rel` を呼び出すために必須。
+- `examples/t_test_paired.py`: 対応のあるデータの雛形。順序が重要である点に注意。
 - 同一ドライバーの前後データをペアで比較し、反応時間が短縮されたかを確認します。
 
 ### 4. 適合度検定 (`examples/chi_square_goodness_of_fit.py`)
@@ -81,6 +90,9 @@ expected = np.repeat(observed.sum() / observed.size, observed.size)
 statistic, p_value = stats.chisquare(f_obs=observed, f_exp=expected)
 ```
 - コマンド: `uv run --with numpy --with scipy python3 examples/chi_square_goodness_of_fit.py`
+- `--with numpy`: 観測・期待度数ベクトルの生成に使用。
+- `--with scipy`: `stats.chisquare` をロード。
+- `examples/chi_square_goodness_of_fit.py`: カテゴリ配列を編集すれば任意の分布に適用可能。
 - 曜日ごとの売上が一様分布から外れているかどうかを評価します。
 
 ### 5. 独立性の検定 (`examples/chi_square_independence.py`)
@@ -90,6 +102,9 @@ contingency = np.array([[35, 22],
 statistic, p_value, dof, expected = stats.chi2_contingency(contingency)
 ```
 - コマンド: `uv run --with numpy --with scipy python3 examples/chi_square_independence.py`
+- `--with numpy`: 2×2 の分割表を `np.array` で表現。
+- `--with scipy`: `stats.chi2_contingency` を利用。
+- `examples/chi_square_independence.py`: 列や行を増やす場合はファイル内行列を変更。
 - 性別と色の嗜好が独立かどうかを確認し、期待度数も出力されます。
 
 ### 6. 同質性の検定 (`examples/chi_square_homogeneity.py`)
@@ -100,6 +115,9 @@ contingency = np.array([[42, 158],
 statistic, p_value, dof, expected = stats.chi2_contingency(contingency)
 ```
 - コマンド: `uv run --with numpy --with scipy python3 examples/chi_square_homogeneity.py`
+- `--with numpy`: 3×2 以上の行列を容易に記述。
+- `--with scipy`: 同質性検定も `stats.chi2_contingency` で共通的に処理。
+- `examples/chi_square_homogeneity.py`: 行の並びがキャンペーンを意味する点をコメントと揃えて扱う。
 - 広告クリエイティブ間でコンバージョン率に差があるかを評価し、期待度数を比較に使えます。
 
 ---
